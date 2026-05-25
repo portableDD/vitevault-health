@@ -65,6 +65,7 @@ export default function ChildDashboard() {
 
     // ── Deposit multi-step state ──
     const [depositStep, setDepositStep] = useState<DepositStep>('amount');
+    const [fundingSource, setFundingSource] = useState<'card' | 'balance'>('card');
     const [depositForm, setDepositForm] = useState({
         amount: '',
         cardNumber: '',
@@ -115,11 +116,12 @@ export default function ChildDashboard() {
         setDepositForm({ amount: '', cardNumber: '', expiry: '', cvv: '' });
         setLockOption('all');
         setDepositLockAmount('');
+        setFundingSource('card');
         setIsDepositModalOpen(true);
     };
 
     const handleSubmitDeposit = async () => {
-        if (!depositForm.amount || !depositForm.cardNumber || !depositForm.expiry || !depositForm.cvv) {
+        if (fundingSource === 'card' && (!depositForm.amount || !depositForm.cardNumber || !depositForm.expiry || !depositForm.cvv)) {
             toast.error('Please fill all card details');
             return;
         }
@@ -140,11 +142,14 @@ export default function ChildDashboard() {
                 body: JSON.stringify({
                     walletId: selectedParent.walletId,
                     amount: parseInt(depositForm.amount),
-                    cardDetails: {
-                        number: depositForm.cardNumber.replace(/\s/g, ''),
-                        expiry: depositForm.expiry,
-                        cvv: depositForm.cvv,
-                    },
+                    fundingSource,
+                    ...(fundingSource === 'card' ? {
+                        cardDetails: {
+                            number: depositForm.cardNumber.replace(/\s/g, ''),
+                            expiry: depositForm.expiry,
+                            cvv: depositForm.cvv,
+                        }
+                    } : {}),
                     schedule: 'one-time',
                     lockSettings: {
                         enabled: true,
@@ -202,7 +207,9 @@ export default function ChildDashboard() {
     const totalBalance = parents.reduce((s, p) => s + (p.balance || 0), 0);
 
     // ── Deposit step navigation helpers ──
-    const depositSteps: DepositStep[] = ['amount', 'payment', 'lock', 'review'];
+    const depositSteps: DepositStep[] = fundingSource === 'balance' 
+        ? ['amount', 'payment', 'review'] 
+        : ['amount', 'payment', 'lock', 'review'];
     const currentStepIndex = depositSteps.indexOf(depositStep);
 
     const canGoNext = () => {
@@ -210,6 +217,7 @@ export default function ChildDashboard() {
             case 'amount':
                 return !!depositForm.amount && parseInt(depositForm.amount) > 0;
             case 'payment':
+                if (fundingSource === 'balance') return parseInt(depositForm.amount || '0') <= (selectedParent?.availableBalance || 0);
                 return !!depositForm.cardNumber && !!depositForm.expiry && !!depositForm.cvv;
             case 'lock':
                 if (lockOption === 'partial' && (!depositLockAmount || parseInt(depositLockAmount) < parseInt(depositForm.amount) * 0.2 || parseInt(depositLockAmount) > parseInt(depositForm.amount))) return false;
@@ -512,46 +520,83 @@ export default function ChildDashboard() {
                                 transition={{ duration: 0.2 }}
                                 className="space-y-4"
                             >
-                                <div className="p-4 bg-[#F8F9FA] rounded-lg">
-                                    <p className="text-sm text-[#6C757D] mb-3">
-                                        💳 Card Details (Demo - use test card: {DEMO_CARDS.visa})
-                                    </p>
+                                <div className="mb-4">
+                                    <label className="block text-sm font-medium text-[#343A40] mb-2">
+                                        Funding Source
+                                    </label>
+                                    <div className="grid grid-cols-2 gap-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => setFundingSource('card')}
+                                            className={`p-3 rounded-xl border-2 text-left transition-all ${fundingSource === 'card'
+                                                ? 'border-[#007BFF] bg-[#007BFF]/5'
+                                                : 'border-gray-200 hover:border-gray-300'
+                                            }`}
+                                        >
+                                            <p className="text-sm font-semibold text-[#343A40]">Card</p>
+                                            <p className="text-xs text-[#6C757D]">Pay with debit/credit card</p>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setFundingSource('balance')}
+                                            className={`p-3 rounded-xl border-2 text-left transition-all ${fundingSource === 'balance'
+                                                ? 'border-[#007BFF] bg-[#007BFF]/5'
+                                                : 'border-gray-200 hover:border-gray-300'
+                                            }`}
+                                        >
+                                            <p className="text-sm font-semibold text-[#343A40]">Available Balance</p>
+                                            <p className="text-xs text-[#6C757D]">₦{(selectedParent?.availableBalance || 0).toLocaleString()}</p>
+                                        </button>
+                                    </div>
+                                    {fundingSource === 'balance' && parseInt(depositForm.amount || '0') > (selectedParent?.availableBalance || 0) && (
+                                        <p className="text-xs text-red-500 mt-2">
+                                            Insufficient available balance for this deposit amount.
+                                        </p>
+                                    )}
+                                </div>
 
-                                    <Input
-                                        placeholder="Card Number"
-                                        value={depositForm.cardNumber}
-                                        onChange={(e) => setDepositForm((prev) => ({
-                                            ...prev,
-                                            cardNumber: formatCardNumber(e.target.value).slice(0, 19)
-                                        }))}
-                                        className="mb-3"
-                                    />
+                                {fundingSource === 'card' && (
+                                    <div className="p-4 bg-[#F8F9FA] rounded-lg">
+                                        <p className="text-sm text-[#6C757D] mb-3">
+                                            💳 Card Details (Demo - use test card: {DEMO_CARDS.visa})
+                                        </p>
 
-                                    <div className="grid grid-cols-2 gap-3">
                                         <Input
-                                            placeholder="MM/YY"
-                                            value={depositForm.expiry}
-                                            onChange={(e) => {
-                                                let value = e.target.value.replace(/\D/g, '');
-                                                if (value.length >= 2) {
-                                                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
-                                                }
-                                                setDepositForm((prev) => ({ ...prev, expiry: value }));
-                                            }}
-                                            maxLength={5}
-                                        />
-                                        <Input
-                                            placeholder="CVV"
-                                            type="password"
-                                            value={depositForm.cvv}
+                                            placeholder="Card Number"
+                                            value={depositForm.cardNumber}
                                             onChange={(e) => setDepositForm((prev) => ({
                                                 ...prev,
-                                                cvv: e.target.value.replace(/\D/g, '').slice(0, 4)
+                                                cardNumber: formatCardNumber(e.target.value).slice(0, 19)
                                             }))}
-                                            maxLength={4}
+                                            className="mb-3"
                                         />
+
+                                        <div className="grid grid-cols-2 gap-3">
+                                            <Input
+                                                placeholder="MM/YY"
+                                                value={depositForm.expiry}
+                                                onChange={(e) => {
+                                                    let value = e.target.value.replace(/\D/g, '');
+                                                    if (value.length >= 2) {
+                                                        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                                                    }
+                                                    setDepositForm((prev) => ({ ...prev, expiry: value }));
+                                                }}
+                                                maxLength={5}
+                                            />
+                                            <Input
+                                                placeholder="CVV"
+                                                type="password"
+                                                value={depositForm.cvv}
+                                                onChange={(e) => setDepositForm((prev) => ({
+                                                    ...prev,
+                                                    cvv: e.target.value.replace(/\D/g, '').slice(0, 4)
+                                                }))}
+                                                maxLength={4}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </motion.div>
                         )}
 
@@ -654,9 +699,9 @@ export default function ChildDashboard() {
                                             </span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-sm text-[#6C757D]">Card</span>
+                                            <span className="text-sm text-[#6C757D]">Source</span>
                                             <span className="text-sm font-medium text-[#343A40]">
-                                                •••• {depositForm.cardNumber.slice(-4)}
+                                                {fundingSource === 'card' ? `•••• ${depositForm.cardNumber.slice(-4)}` : 'Available Balance'}
                                             </span>
                                         </div>
                                         <>
@@ -664,10 +709,12 @@ export default function ChildDashboard() {
                                             <div className="flex justify-between">
                                                 <span className="text-sm text-[#6C757D]">🔒 Lock Amount</span>
                                                 <span className="text-sm font-bold text-amber-600">
-                                                    ₦{(lockOption === 'all'
-                                                        ? parseInt(depositForm.amount || '0')
-                                                        : parseInt(depositLockAmount || '0')
-                                                    ).toLocaleString()}
+                                                    ₦{(fundingSource === 'balance' 
+                                                        ? parseInt(depositForm.amount || '0') 
+                                                        : (lockOption === 'all'
+                                                            ? parseInt(depositForm.amount || '0')
+                                                            : parseInt(depositLockAmount || '0')
+                                                    )).toLocaleString()}
                                                 </span>
                                             </div>
                                         </>
@@ -703,6 +750,7 @@ export default function ChildDashboard() {
                                 size="lg"
                                 className="flex-1"
                                 isLoading={isLoading}
+                                disabled={fundingSource === 'card' ? (!depositForm.cardNumber || !depositForm.expiry || !depositForm.cvv) : false}
                                 onClick={handleSubmitDeposit}
                             >
                                 {depositForm.amount

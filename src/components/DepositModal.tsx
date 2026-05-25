@@ -9,6 +9,7 @@ interface DepositModalProps {
     isOpen: boolean;
     onClose: () => void;
     walletId: string;
+    availableBalance?: number;
     onSuccess?: (amount: number) => void;
 }
 
@@ -16,12 +17,13 @@ type DepositStep = 'amount' | 'payment' | 'lock' | 'review';
 
 const presetAmounts = [1000, 2000, 5000, 10000, 20000, 50000];
 
-export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: DepositModalProps) {
+export default function DepositModal({ isOpen, onClose, walletId, availableBalance, onSuccess }: DepositModalProps) {
     const [cardNumber, setCardNumber] = useState('');
     const [expiry, setExpiry] = useState('');
     const [cvv, setCvv] = useState('');
     const [amount, setAmount] = useState(5000);
     const [depositStep, setDepositStep] = useState<DepositStep>('amount');
+    const [fundingSource, setFundingSource] = useState<'card' | 'balance'>('card');
 
     const [isLoading, setIsLoading] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
@@ -60,9 +62,12 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
                 body: JSON.stringify({
                     walletId,
                     amount,
-                    cardNumber: cardNumber.replace(/\s/g, ''),
-                    expiry,
-                    cvv,
+                    fundingSource,
+                    ...(fundingSource === 'card' ? {
+                        cardNumber: cardNumber.replace(/\s/g, ''),
+                        expiry,
+                        cvv,
+                    } : {}),
                     schedule: 'one-time',
                     lockSettings: {
                         enabled: true,
@@ -88,6 +93,7 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
                     setCvv('');
                     setAmount(5000);
                     setDepositStep('amount');
+                    setFundingSource('card');
                     setLockOption('all');
                     setLockDescription('Medical Reserve');
                     setLockAmount(0);
@@ -123,7 +129,9 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
     );
 
     // ── Step navigation helpers ──
-    const depositSteps: DepositStep[] = ['amount', 'payment', 'lock', 'review'];
+    const depositSteps: DepositStep[] = fundingSource === 'balance' 
+        ? ['amount', 'payment', 'review'] 
+        : ['amount', 'payment', 'lock', 'review'];
     const currentStepIndex = depositSteps.indexOf(depositStep);
 
     const canGoNext = () => {
@@ -131,6 +139,7 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
             case 'amount':
                 return amount > 0;
             case 'payment':
+                if (fundingSource === 'balance') return amount <= (availableBalance || 0);
                 return !!cardNumber && !!expiry && !!cvv;
             case 'lock':
                 const minLock = amount * 0.2;
@@ -248,40 +257,79 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
                             transition={{ duration: 0.2 }}
                             className="space-y-4"
                         >
-                            <Input
-                                label="Card Number"
-                                placeholder="4242 4242 4242 4242"
-                                value={cardNumber}
-                                onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                                required
-                                leftIcon={
-                                    <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                    </svg>
-                                }
-                            />
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <Input
-                                    label="Expiry"
-                                    placeholder="MM/YY"
-                                    value={expiry}
-                                    onChange={(e) => setExpiry(formatExpiry(e.target.value))}
-                                    required
-                                />
-                                <Input
-                                    label="CVV"
-                                    placeholder="123"
-                                    type="password"
-                                    value={cvv}
-                                    onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                                    required
-                                />
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-neutral-dark mb-2">
+                                    Funding Source
+                                </label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => setFundingSource('card')}
+                                        className={`p-3 rounded-xl border-2 text-left transition-all ${fundingSource === 'card'
+                                            ? 'border-primary bg-primary/5'
+                                            : 'border-gray-200 hover:border-gray-300'
+                                        }`}
+                                    >
+                                        <p className="text-sm font-semibold text-neutral-dark">Card</p>
+                                        <p className="text-xs text-gray-500">Pay with debit/credit card</p>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setFundingSource('balance')}
+                                        className={`p-3 rounded-xl border-2 text-left transition-all ${fundingSource === 'balance'
+                                            ? 'border-primary bg-primary/5'
+                                            : 'border-gray-200 hover:border-gray-300'
+                                        }`}
+                                    >
+                                        <p className="text-sm font-semibold text-neutral-dark">Available Balance</p>
+                                        <p className="text-xs text-gray-500">₦{(availableBalance || 0).toLocaleString()}</p>
+                                    </button>
+                                </div>
+                                {fundingSource === 'balance' && amount > (availableBalance || 0) && (
+                                    <p className="text-xs text-red-500 mt-2">
+                                        Insufficient available balance for this deposit amount.
+                                    </p>
+                                )}
                             </div>
 
-                            <p className="text-xs text-center text-gray-500">
-                                Demo mode: Use card starting with &quot;4&quot; for successful deposit
-                            </p>
+                            {fundingSource === 'card' && (
+                                <div className="space-y-4">
+                                    <Input
+                                        label="Card Number"
+                                        placeholder="4242 4242 4242 4242"
+                                        value={cardNumber}
+                                        onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                                        required
+                                        leftIcon={
+                                            <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                            </svg>
+                                        }
+                                    />
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <Input
+                                            label="Expiry"
+                                            placeholder="MM/YY"
+                                            value={expiry}
+                                            onChange={(e) => setExpiry(formatExpiry(e.target.value))}
+                                            required
+                                        />
+                                        <Input
+                                            label="CVV"
+                                            placeholder="123"
+                                            type="password"
+                                            value={cvv}
+                                            onChange={(e) => setCvv(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                                            required
+                                        />
+                                    </div>
+
+                                    <p className="text-xs text-center text-gray-500">
+                                        Demo mode: Use card starting with &quot;4&quot; for successful deposit
+                                    </p>
+                                </div>
+                            )}
                         </motion.div>
                     )}
 
@@ -395,9 +443,9 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
                                         </span>
                                     </div>
                                     <div className="flex justify-between">
-                                        <span className="text-sm text-gray-500">Card</span>
+                                        <span className="text-sm text-gray-500">Source</span>
                                         <span className="text-sm font-medium text-neutral-dark">
-                                            •••• {cardNumber.slice(-4)}
+                                            {fundingSource === 'card' ? `•••• ${cardNumber.slice(-4)}` : 'Available Balance'}
                                         </span>
                                     </div>
                                     <>
@@ -405,13 +453,15 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
                                         <div className="flex justify-between">
                                             <span className="text-sm text-gray-500">🔒 Lock Amount</span>
                                             <span className="text-sm font-bold text-amber-600">
-                                                ₦{(lockOption === 'all' ? amount : lockAmount).toLocaleString()}
+                                                ₦{(fundingSource === 'balance' ? amount : (lockOption === 'all' ? amount : lockAmount)).toLocaleString()}
                                             </span>
                                         </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-sm text-gray-500">Lock Description</span>
-                                            <span className="text-sm font-medium text-neutral-dark">{lockDescription}</span>
-                                        </div>
+                                        {fundingSource !== 'balance' && (
+                                            <div className="flex justify-between">
+                                                <span className="text-sm text-gray-500">Lock Description</span>
+                                                <span className="text-sm font-medium text-neutral-dark">{lockDescription}</span>
+                                            </div>
+                                        )}
                                     </>
                                 </div>
                             </div>
@@ -444,7 +494,7 @@ export default function DepositModal({ isOpen, onClose, walletId, onSuccess }: D
                             type="submit"
                             variant="primary"
                             className="flex-1 py-4 text-lg"
-                            disabled={isLoading || !cardNumber || !expiry || !cvv}
+                            disabled={isLoading || (fundingSource === 'card' && (!cardNumber || !expiry || !cvv))}
                             onClick={() => handleSubmit()}
                         >
                             {isLoading ? (

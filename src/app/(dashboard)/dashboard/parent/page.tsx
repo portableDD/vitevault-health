@@ -501,6 +501,7 @@ export default function ParentDashboard() {
                     isOpen={isDepositModalOpen}
                     onClose={() => setIsDepositModalOpen(false)}
                     walletId={wallet.id}
+                    availableBalance={wallet.availableBalance}
                     onSuccess={() => fetchDashboardData()}
                 />
             )}

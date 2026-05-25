@@ -200,14 +200,7 @@ export default function SignUpPage() {
                                 }
                             />
 
-                            <Input
-                                label="Link Code (Optional)"
-                                name="linkCodeToConnect"
-                                placeholder="Enter a family member's code"
-                                value={formData.linkCodeToConnect}
-                                onChange={handleChange}
-                                helperText="If you have a link code from a family member, enter it here"
-                            />
+
 
                             <Button
                                 type="submit"

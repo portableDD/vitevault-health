@@ -64,7 +64,7 @@
     {
       "_id": "mmxo0zcvsiwl7j0v",
       "owner": "mmxo0zcs1kg3n4ui",
-      "balance": 51000,
+      "balance": 56000,
       "currency": "NGN",
       "transactions": [
         {
@@ -174,6 +174,24 @@
           "date": "2026-04-28T11:28:54.538Z",
           "schedule": "one-time",
           "fromUserId": "mmxo59hq03ikxkg5"
+        },
+        {
+          "_id": "mpl99atfdyfvbyjl",
+          "amount": 5000,
+          "type": "deposit",
+          "description": "Deposit via VISA ending in 1111",
+          "date": "2026-05-25T13:41:48.675Z",
+          "schedule": "one-time",
+          "fromUserId": "mmxo0zcs1kg3n4ui"
+        },
+        {
+          "_id": "mplau812oxivz86r",
+          "amount": 5000,
+          "type": "deposit",
+          "description": "Locked funds from Available Balance",
+          "date": "2026-05-25T14:26:04.454Z",
+          "schedule": "one-time",
+          "fromUserId": "mmxo0zcs1kg3n4ui"
         }
       ],
       "lockedFunds": [
@@ -195,7 +213,7 @@
         },
         {
           "_id": "mmyz9ykjoiv0lccx",
-          "amount": 10000,
+          "amount": 20000,
           "lockedAt": "2026-03-20T14:12:02.755Z",
           "unlocksAt": "2036-03-20T14:12:02.754Z",
           "isActive": true,
@@ -204,7 +222,7 @@
       ],
       "scheduledDeposits": [],
       "createdAt": "2026-03-19T16:09:21.919Z",
-      "updatedAt": "2026-04-28T11:28:54.540Z"
+      "updatedAt": "2026-05-25T14:26:04.455Z"
     }
   ],
   "medications": [
@@ -520,6 +538,21 @@
       },
       "createdAt": "2026-04-28T11:28:54.557Z",
       "updatedAt": "2026-04-28T11:28:54.557Z"
+    },
+    {
+      "_id": "mpl99b49cxiau2au",
+      "userId": "mmxo0zcs1kg3n4ui",
+      "type": "deposit",
+      "title": "Deposit Received",
+      "message": "₦5,000 was deposited to your wallet via visa.",
+      "read": false,
+      "data": {
+        "walletId": "mmxo0zcvsiwl7j0v",
+        "amount": 5000,
+        "fromUserId": "mmxo0zcs1kg3n4ui"
+      },
+      "createdAt": "2026-05-25T13:41:49.065Z",
+      "updatedAt": "2026-05-25T13:41:49.065Z"
     }
   ]
 }

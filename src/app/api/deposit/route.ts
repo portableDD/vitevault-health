@@ -22,21 +22,15 @@ export async function POST(request: NextRequest) {
             cardNumber,
             expiry,
             cvv,
+            fundingSource,
             schedule = 'one-time',
             lockSettings // { enabled, amount, durationDays, description }
         } = body;
 
-        // Map fields to cardDetails
-        const cardDetails = {
-            number: cardNumber || body.cardDetails?.number,
-            expiry: expiry || body.cardDetails?.expiry,
-            cvv: cvv || body.cardDetails?.cvv
-        };
-
         // Validation
-        if (!walletId || !amount || !cardDetails) {
+        if (!walletId || !amount) {
             return NextResponse.json(
-                { error: 'Wallet ID, amount, and card details are required' },
+                { error: 'Wallet ID and amount are required' },
                 { status: 400 }
             );
         }
@@ -48,13 +42,28 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Validate card (demo mode)
-        const cardValidation = validateCard(cardDetails);
-        if (!cardValidation.valid) {
-            return NextResponse.json(
-                { error: cardValidation.error },
-                { status: 400 }
-            );
+        let cardValidation: { valid: boolean, cardType?: string, error?: string } = { valid: true, cardType: 'None', error: '' };
+        if (fundingSource !== 'balance') {
+            const cardDetails = {
+                number: cardNumber || body.cardDetails?.number,
+                expiry: expiry || body.cardDetails?.expiry,
+                cvv: cvv || body.cardDetails?.cvv
+            };
+
+            if (!cardDetails.number || !cardDetails.expiry || !cardDetails.cvv) {
+                return NextResponse.json(
+                    { error: 'Card details are required' },
+                    { status: 400 }
+                );
+            }
+
+            cardValidation = validateCard(cardDetails);
+            if (!cardValidation.valid) {
+                return NextResponse.json(
+                    { error: cardValidation.error },
+                    { status: 400 }
+                );
+            }
         }
 
         // Find wallet
@@ -66,12 +75,53 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Add transaction
+        if (fundingSource === 'balance') {
+            const currentLocked = wallet.lockedFunds.reduce((sum, f) => sum + (f.isActive ? f.amount : 0), 0);
+            const availableBalance = wallet.balance - currentLocked;
+            
+            if (amount > availableBalance) {
+                return NextResponse.json({ error: 'Insufficient available balance' }, { status: 400 });
+            }
+
+            // Just lock the funds
+            const unlockDate = new Date();
+            unlockDate.setFullYear(unlockDate.getFullYear() + 10);
+            const existingLock = wallet.lockedFunds.find(f => f.isActive);
+            if (existingLock) {
+                existingLock.amount += amount;
+                existingLock.description = lockSettings?.description || existingLock.description || 'Medical Reserve';
+            } else {
+                wallet.lockedFunds.push({
+                    _id: generateId(),
+                    amount: amount,
+                    lockedAt: new Date().toISOString(),
+                    unlocksAt: unlockDate.toISOString(),
+                    isActive: true,
+                    description: lockSettings?.description || 'Medical Reserve',
+                });
+            }
+
+            wallet.transactions.push({
+                _id: generateId(),
+                amount,
+                type: 'deposit',
+                description: `Locked funds from Available Balance`,
+                date: new Date().toISOString(),
+                schedule: schedule,
+                fromUserId: session.user.id,
+            });
+
+            Wallets.save(wallet);
+
+            return NextResponse.json({ message: 'Funds locked successfully', balance: wallet.balance }, { status: 200 });
+        }
+
+        // Normal card deposit
         wallet.transactions.push({
             _id: generateId(),
             amount,
             type: 'deposit',
-            description: `Deposit via ${cardValidation.cardType?.toUpperCase() || 'Card'} ending in ${cardDetails.number.slice(-4)}`,
+            description: `Deposit via ${cardValidation.cardType?.toUpperCase() || 'Card'} ending in ${body.cardDetails?.number?.slice(-4) || cardNumber?.slice(-4) || 'XXXX'}`,
             date: new Date().toISOString(),
             schedule: schedule,
             fromUserId: session.user.id,
