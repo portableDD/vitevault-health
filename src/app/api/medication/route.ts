@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
             refillCost,
             walletId,
             pharmacyId: targetPharmacy._id,
-            lastRefillDate: new Date().toISOString(),
+            lastRefillDate: '',
             isActive: true,
             // ✅ KEY: Medication starts as pending_approval — pharmacy must approve first
             refillStatus: 'pending_approval',

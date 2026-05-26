@@ -19,6 +19,7 @@ interface Medication {
     refillStatus: string;
     countdownEndDate: string | null;
     countdownActive: boolean;
+    isNew: boolean;
 }
 
 interface Patient {
@@ -37,6 +38,7 @@ interface PendingRefill {
     medication: string;
     amount: number;
     refillStatus: string;
+    isNew: boolean;
 }
 
 interface DashboardData {
@@ -188,15 +190,6 @@ export default function PharmacyDashboard() {
                             </button>
                         </div>
                     )}
-                    <Button
-                        onClick={() => {
-                            setPrefilledPayment({ linkCode: '', medication: '', amount: 0 });
-                            setShowPaymentModal(true);
-                        }}
-                        className="bg-green-600 hover:bg-green-700 text-white"
-                    >
-                        💳 Process Payment
-                    </Button>
                 </div>
             </div>
 
@@ -223,7 +216,7 @@ export default function PharmacyDashboard() {
             {/* Pending Approvals */}
             <div className="mb-8">
                 <h2 className="text-xl font-bold text-[#343A40] mb-4">
-                    Pending Refill Requests
+                    Pending Prescriptions & Refills
                 </h2>
 
                 {pendingRefills.length === 0 ? (
@@ -250,8 +243,10 @@ export default function PharmacyDashboard() {
                                         <div>
                                             <p className="font-bold text-[#343A40]">{item.patient}</p>
                                             <p className="text-sm text-[#6C757D]">{item.medication}</p>
-                                            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 mt-1">
-                                                ⏳ Awaiting Approval
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium mt-1 ${
+                                                item.isNew ? 'bg-purple-100 text-purple-800' : 'bg-amber-100 text-amber-800'
+                                            }`}>
+                                                {item.isNew ? '🆕 New Prescription' : '🔄 Refill Request'}
                                             </span>
                                         </div>
                                     </div>
@@ -266,7 +261,7 @@ export default function PharmacyDashboard() {
                                             isLoading={processingId === item.id}
                                             onClick={() => handleApprove(item.id, item.patient, item.medication)}
                                         >
-                                            ✅ Approve Refill
+                                            ✅ Approve & Charge
                                         </Button>
                                     </div>
                                 </Card>
@@ -317,26 +312,6 @@ export default function PharmacyDashboard() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        {patient.medications.some(m => m.refillStatus === 'pending_approval') && (
-                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-                                                ⏳ Pending Refill
-                                            </span>
-                                        )}
-                                        <Button
-                                            size="sm"
-                                            variant="outline"
-                                            onClick={() => {
-                                                setPrefilledPayment({
-                                                    linkCode: patient.linkCode || '',
-                                                    medication: '',
-                                                    amount: 0,
-                                                });
-                                                setShowPaymentModal(true);
-                                            }}
-                                        >
-                                            💳 Charge
-                                        </Button>
                                     </div>
                                 </div>
 
@@ -362,14 +337,27 @@ export default function PharmacyDashboard() {
                                                     />
                                                     <p className="text-xs font-semibold text-[#343A40] mt-2">{med.name}</p>
                                                     <p className="text-[10px] text-[#6C757D]">₦{med.refillCost.toLocaleString()}</p>
-                                                    {/* Status and countdown indicator */}
-                                                    <div className="w-full space-y-1 mt-1">
+                                                    {/* Status and Actions */}
+                                                    <div className="w-full mt-3">
                                                         {med.refillStatus === 'pending_approval' ? (
-                                                            <span className="block text-[10px] font-medium bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full">
-                                                                ⏳ Pending Approval
-                                                            </span>
-                                                        ) : med.status === 'active' ? (
                                                             <>
+                                                                <span className={`block text-[10px] font-medium px-1.5 py-0.5 rounded-full mb-1 ${
+                                                                    med.isNew ? 'bg-purple-100 text-purple-800' : 'bg-amber-100 text-amber-800'
+                                                                }`}>
+                                                                    {med.isNew ? '🆕 New Prescription' : '🔄 Refill Request'}
+                                                                </span>
+                                                                <Button 
+                                                                    size="sm" 
+                                                                    variant="primary" 
+                                                                    className="w-full text-[10px] py-1 h-auto"
+                                                                    isLoading={processingId === med.id}
+                                                                    onClick={() => handleApprove(med.id, patient.name, med.name)}
+                                                                >
+                                                                    Approve & Charge
+                                                                </Button>
+                                                            </>
+                                                        ) : med.status === 'active' ? (
+                                                            <div className="space-y-1">
                                                                 <span className="block text-[10px] font-medium bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">
                                                                     ✓ Active
                                                                 </span>
@@ -378,7 +366,7 @@ export default function PharmacyDashboard() {
                                                                         ⏱️ Countdown Running
                                                                     </span>
                                                                 )}
-                                                            </>
+                                                            </div>
                                                         ) : (
                                                             <span className="block text-[10px] font-medium bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">
                                                                 ⚠ Depleted
@@ -396,14 +384,6 @@ export default function PharmacyDashboard() {
                 )}
             </div>
 
-            <PaymentModal
-                isOpen={showPaymentModal}
-                onClose={() => setShowPaymentModal(false)}
-                onSuccess={fetchDashboardData}
-                prefilledLinkCode={prefilledPayment.linkCode}
-                prefilledMedication={prefilledPayment.medication}
-                prefilledAmount={prefilledPayment.amount}
-            />
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { Users, Wallets, Medications, Notifications } from '@/lib/indexedDB';
+import { Users, Wallets, Medications, Notifications, generateId } from '@/lib/indexedDB';
 
 export async function POST(request: NextRequest) {
     try {
@@ -49,8 +49,47 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // ✅ KEY CHANGE: NO automatic deduction on approval
-        // The pharmacy will manually charge from locked funds when countdown expires
+        // Deduct from locked funds
+        const amount = medication.refillCost;
+        const totalLocked = Wallets.getTotalLocked(wallet);
+
+        if (totalLocked < amount) {
+            return NextResponse.json({
+                error: 'Insufficient locked funds. The patient needs to lock more funds before approval.',
+                details: { lockedFunds: totalLocked, required: amount }
+            }, { status: 400 });
+        }
+
+        // Deduct from locked funds (proportionally from active locks)
+        let remainingToDeduct = amount;
+        for (const lock of wallet.lockedFunds) {
+            if (!lock.isActive || remainingToDeduct <= 0) continue;
+
+            const deductFromThis = Math.min(lock.amount, remainingToDeduct);
+            lock.amount -= deductFromThis;
+            remainingToDeduct -= deductFromThis;
+
+            if (lock.amount <= 0) {
+                lock.isActive = false;
+            }
+        }
+
+        // Deduct from total balance
+        wallet.balance -= amount;
+
+        // Record Transaction
+        wallet.transactions.push({
+            _id: generateId(),
+            amount,
+            type: 'deduction',
+            description: `Pharmacy Charge: ${medication.name}`,
+            date: new Date().toISOString(),
+            schedule: 'one-time',
+            fromUserId: session.user.id,
+            medicationId: medication._id,
+        });
+
+        Wallets.save(wallet);
 
         // Calculate countdown end date (when medication will run out)
         const daysSupply = medication.usageRate > 0
@@ -73,14 +112,15 @@ export async function POST(request: NextRequest) {
         Notifications.create({
             userId: wallet.owner,
             type: 'refill',
-            title: 'Medication Approved! 💊',
-            message: `${session.user.name} approved your medication "${medication.name}". The countdown has started (${daysSupply} days).`,
+            title: 'Medication Approved & Charged! 💊',
+            message: `${session.user.name} approved your medication "${medication.name}". ₦${amount.toLocaleString()} was charged from locked funds. The countdown has started.`,
             read: false,
             data: {
                 medicationId: medication._id,
                 walletId: wallet._id,
                 pharmacyId: session.user.id,
                 daysSupply,
+                amountCharged: amount,
             },
         });
 

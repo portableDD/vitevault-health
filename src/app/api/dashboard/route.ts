@@ -205,6 +205,29 @@ export async function GET() {
                     ? Medications.findByWalletId(wallet._id, true)
                     : [];
 
+                // ── Auto-refill generation logic (2 days before expiry) ──
+                for (const med of medications) {
+                    if (med.refillStatus === 'approved' && med.countdownActive) {
+                        const daysLeft = getDaysRemaining(med);
+                        if (daysLeft <= 2) {
+                            med.refillStatus = 'pending_approval';
+                            med.refillRequestedAt = new Date().toISOString();
+                            med.countdownActive = false; // Pause countdown until approved and charged again
+                            Medications.save(med);
+                            
+                            // Notify pharmacy
+                            Notifications.create({
+                                userId: user._id,
+                                type: 'refill',
+                                title: 'Auto-Refill Request',
+                                message: `${patient.name}'s medication "${med.name}" is almost depleted. Auto-refill requested.`,
+                                read: false,
+                                data: { medicationId: med._id, amount: med.refillCost }
+                            });
+                        }
+                    }
+                }
+
                 return {
                     id: patient._id,
                     name: patient.name,
@@ -222,6 +245,7 @@ export async function GET() {
                         refillStatus: med.refillStatus || 'none',
                         countdownEndDate: med.countdownEndDate || null,
                         countdownActive: med.countdownActive || false,
+                        isNew: !med.lastRefillDate,
                     })),
                 };
             });
@@ -236,6 +260,7 @@ export async function GET() {
                         medication: med.name,
                         amount: med.refillCost,
                         refillStatus: med.refillStatus,
+                        isNew: med.isNew,
                     }))
             );
 

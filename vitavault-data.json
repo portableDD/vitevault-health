@@ -64,7 +64,7 @@
     {
       "_id": "mmxo0zcvsiwl7j0v",
       "owner": "mmxo0zcs1kg3n4ui",
-      "balance": 56000,
+      "balance": 54000,
       "currency": "NGN",
       "transactions": [
         {
@@ -192,6 +192,15 @@
           "date": "2026-05-25T14:26:04.454Z",
           "schedule": "one-time",
           "fromUserId": "mmxo0zcs1kg3n4ui"
+        },
+        {
+          "_id": "mplfo42zqcd7y1tr",
+          "amount": 2000,
+          "type": "deduction",
+          "description": "Pharmacy Payment: Insulin (from Locked Funds)",
+          "date": "2026-05-25T16:41:17.483Z",
+          "schedule": "one-time",
+          "fromUserId": "mmxoe2tyswnmel14"
         }
       ],
       "lockedFunds": [
@@ -213,7 +222,7 @@
         },
         {
           "_id": "mmyz9ykjoiv0lccx",
-          "amount": 20000,
+          "amount": 18000,
           "lockedAt": "2026-03-20T14:12:02.755Z",
           "unlocksAt": "2036-03-20T14:12:02.754Z",
           "isActive": true,
@@ -222,7 +231,7 @@
       ],
       "scheduledDeposits": [],
       "createdAt": "2026-03-19T16:09:21.919Z",
-      "updatedAt": "2026-05-25T14:26:04.455Z"
+      "updatedAt": "2026-05-25T16:41:17.484Z"
     }
   ],
   "medications": [
@@ -553,6 +562,21 @@
       },
       "createdAt": "2026-05-25T13:41:49.065Z",
       "updatedAt": "2026-05-25T13:41:49.065Z"
+    },
+    {
+      "_id": "mplfo44aji81aqtc",
+      "userId": "mmxo0zcs1kg3n4ui",
+      "type": "deduction",
+      "title": "Pharmacy Payment Processed",
+      "message": "₦2,000 paid to Sanjesh Nabeel for Insulin (from locked funds).",
+      "read": false,
+      "data": {
+        "walletId": "mmxo0zcvsiwl7j0v",
+        "amount": 2000,
+        "pharmacyId": "mmxoe2tyswnmel14"
+      },
+      "createdAt": "2026-05-25T16:41:17.530Z",
+      "updatedAt": "2026-05-25T16:41:17.530Z"
     }
   ]
 }
