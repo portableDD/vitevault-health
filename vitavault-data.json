@@ -58,6 +58,65 @@
       },
       "createdAt": "2026-03-19T16:19:32.950Z",
       "updatedAt": "2026-03-19T16:20:21.280Z"
+    },
+    {
+      "_id": "mpmtggc4iqot8sgw",
+      "email": "emmanueldorcas15@gmail.com",
+      "passwordHash": "$2b$12$wspYibFRUwiIS64jb9Psr.EkzNtddBvtdJi2VWy8MOBxtbwQphCsK",
+      "name": "Eco Paradise",
+      "role": "child",
+      "links": [
+        "mpmthxbpydyptg8a"
+      ],
+      "linkCode": "UGA5PX",
+      "notifications": {
+        "refillReminders": true,
+        "depositAlerts": true,
+        "connectionRequests": true,
+        "emailNotifications": false
+      },
+      "createdAt": "2026-05-26T15:55:00.916Z",
+      "updatedAt": "2026-05-26T15:57:26.905Z"
+    },
+    {
+      "_id": "mpmthxbpydyptg8a",
+      "email": "frontendpostmanreact@gmail.com",
+      "passwordHash": "$2b$12$9Dhq9ce0SFXcuTNZwEXFA.5RLIFPXz9CV5eLSYDv2RoOWy1npMjwW",
+      "name": "Frontend Postman",
+      "role": "parent",
+      "links": [
+        "mpmtggc4iqot8sgw",
+        "mpmtn1q4jc3bo9v4"
+      ],
+      "linkCode": "LPPJM5",
+      "notifications": {
+        "refillReminders": true,
+        "depositAlerts": true,
+        "connectionRequests": true,
+        "emailNotifications": false
+      },
+      "createdAt": "2026-05-26T15:56:09.589Z",
+      "updatedAt": "2026-05-26T16:00:32.382Z",
+      "walletId": "mpmthxbqh4vtxo5y"
+    },
+    {
+      "_id": "mpmtn1q4jc3bo9v4",
+      "email": "temiport25@gmail.com",
+      "passwordHash": "$2b$12$YwL7jTeMiV6BgOyfdXtxKeyJyDFQt.hfygdmx91.w4niyYXilG7di",
+      "name": "Temitope",
+      "role": "pharmacy",
+      "links": [
+        "mpmthxbpydyptg8a"
+      ],
+      "linkCode": "F7LYHV",
+      "notifications": {
+        "refillReminders": true,
+        "depositAlerts": true,
+        "connectionRequests": true,
+        "emailNotifications": false
+      },
+      "createdAt": "2026-05-26T16:00:08.572Z",
+      "updatedAt": "2026-05-26T16:00:32.382Z"
     }
   ],
   "wallets": [
@@ -232,6 +291,46 @@
       "scheduledDeposits": [],
       "createdAt": "2026-03-19T16:09:21.919Z",
       "updatedAt": "2026-05-25T16:41:17.484Z"
+    },
+    {
+      "_id": "mpmthxbqh4vtxo5y",
+      "owner": "mpmthxbpydyptg8a",
+      "balance": 15000,
+      "currency": "NGN",
+      "transactions": [
+        {
+          "_id": "mpmtkyw8tbpx46le",
+          "amount": 20000,
+          "type": "deposit",
+          "description": "Deposit via VISA ending in 1111",
+          "date": "2026-05-26T15:58:31.592Z",
+          "schedule": "one-time",
+          "fromUserId": "mpmtggc4iqot8sgw"
+        },
+        {
+          "_id": "mpmtp1uz19mys10d",
+          "amount": 5000,
+          "type": "deduction",
+          "description": "Pharmacy Charge: Paracetamol",
+          "date": "2026-05-26T16:01:42.059Z",
+          "schedule": "one-time",
+          "fromUserId": "mpmtn1q4jc3bo9v4",
+          "medicationId": "mpmtof3cmyg8n1ww"
+        }
+      ],
+      "lockedFunds": [
+        {
+          "_id": "mpmtkyw8aylabeek",
+          "amount": 5000,
+          "lockedAt": "2026-05-26T15:58:31.592Z",
+          "unlocksAt": "2036-05-26T15:58:31.592Z",
+          "isActive": true,
+          "description": "Medical Reserve"
+        }
+      ],
+      "scheduledDeposits": [],
+      "createdAt": "2026-05-26T15:56:09.590Z",
+      "updatedAt": "2026-05-26T16:01:42.059Z"
     }
   ],
   "medications": [
@@ -274,6 +373,45 @@
       "createdAt": "2026-03-20T14:10:04.481Z",
       "updatedAt": "2026-03-20T14:10:49.612Z",
       "countdownEndDate": "2026-04-19T14:10:49.611Z"
+    },
+    {
+      "_id": "mpmtof3cmyg8n1ww",
+      "name": "Paracetamol",
+      "description": "Take after meal",
+      "remainingQty": 6,
+      "totalQty": 30,
+      "usageRate": 6,
+      "refillCost": 5000,
+      "walletId": "mpmthxbqh4vtxo5y",
+      "pharmacyId": "mpmtn1q4jc3bo9v4",
+      "lastRefillDate": "2026-05-26T16:01:42.060Z",
+      "isActive": true,
+      "refillStatus": "pending_approval",
+      "refillRequestedAt": "2026-05-26T16:04:28.103Z",
+      "refillRequestedBy": "mpmthxbpydyptg8a",
+      "countdownActive": false,
+      "createdAt": "2026-05-26T16:01:12.552Z",
+      "updatedAt": "2026-05-26T16:04:28.103Z",
+      "countdownEndDate": "2026-05-27T16:01:42.060Z"
+    },
+    {
+      "_id": "mpmtqjzic4wy3faf",
+      "name": "Omoparozle",
+      "description": "Take before meal",
+      "remainingQty": 30,
+      "totalQty": 30,
+      "usageRate": 2,
+      "refillCost": 5000,
+      "walletId": "mpmthxbqh4vtxo5y",
+      "pharmacyId": "mpmtn1q4jc3bo9v4",
+      "lastRefillDate": "",
+      "isActive": true,
+      "refillStatus": "pending_approval",
+      "refillRequestedAt": "2026-05-26T16:02:52.206Z",
+      "refillRequestedBy": "mpmthxbpydyptg8a",
+      "countdownActive": false,
+      "createdAt": "2026-05-26T16:02:52.206Z",
+      "updatedAt": "2026-05-26T16:02:52.206Z"
     }
   ],
   "notifications": [
@@ -577,6 +715,127 @@
       },
       "createdAt": "2026-05-25T16:41:17.530Z",
       "updatedAt": "2026-05-25T16:41:17.530Z"
+    },
+    {
+      "_id": "mpmtkywwqc8ti8ed",
+      "userId": "mpmthxbpydyptg8a",
+      "type": "deposit",
+      "title": "Deposit Received",
+      "message": "₦20,000 was deposited to your wallet via visa.",
+      "read": false,
+      "data": {
+        "walletId": "mpmthxbqh4vtxo5y",
+        "amount": 20000,
+        "fromUserId": "mpmtggc4iqot8sgw"
+      },
+      "createdAt": "2026-05-26T15:58:31.616Z",
+      "updatedAt": "2026-05-26T15:58:31.616Z"
+    },
+    {
+      "_id": "mpmtkywwo4q544da",
+      "userId": "mpmtggc4iqot8sgw",
+      "type": "deposit",
+      "title": "Deposit Confirmed",
+      "message": "Your deposit of ₦20,000 to Frontend Postman was successful.",
+      "read": false,
+      "data": {
+        "walletId": "mpmthxbqh4vtxo5y",
+        "amount": 20000
+      },
+      "createdAt": "2026-05-26T15:58:31.616Z",
+      "updatedAt": "2026-05-26T15:58:31.616Z"
+    },
+    {
+      "_id": "mpmtof3c0o1kxuxv",
+      "userId": "mpmtn1q4jc3bo9v4",
+      "type": "refill",
+      "title": "New Medication Request",
+      "message": "Frontend Postman has added a new medication \"Paracetamol\" and is requesting approval. Refill cost: ₦5,000.",
+      "read": false,
+      "data": {
+        "medicationId": "mpmtof3cmyg8n1ww",
+        "parentId": "mpmthxbpydyptg8a",
+        "walletId": "mpmthxbqh4vtxo5y",
+        "amount": 5000
+      },
+      "createdAt": "2026-05-26T16:01:12.552Z",
+      "updatedAt": "2026-05-26T16:01:12.552Z"
+    },
+    {
+      "_id": "mpmtof3cvqwcv1uh",
+      "userId": "mpmthxbpydyptg8a",
+      "type": "refill",
+      "title": "Medication Request Sent",
+      "message": "Your medication \"Paracetamol\" request has been sent to Temitope for approval.",
+      "read": false,
+      "data": {
+        "medicationId": "mpmtof3cmyg8n1ww",
+        "pharmacyName": "Temitope"
+      },
+      "createdAt": "2026-05-26T16:01:12.552Z",
+      "updatedAt": "2026-05-26T16:01:12.552Z"
+    },
+    {
+      "_id": "mpmtp1v00j381mve",
+      "userId": "mpmthxbpydyptg8a",
+      "type": "refill",
+      "title": "Medication Approved & Charged! 💊",
+      "message": "Temitope approved your medication \"Paracetamol\". ₦5,000 was charged from locked funds. The countdown has started.",
+      "read": false,
+      "data": {
+        "medicationId": "mpmtof3cmyg8n1ww",
+        "walletId": "mpmthxbqh4vtxo5y",
+        "pharmacyId": "mpmtn1q4jc3bo9v4",
+        "daysSupply": 5,
+        "amountCharged": 5000
+      },
+      "createdAt": "2026-05-26T16:01:42.060Z",
+      "updatedAt": "2026-05-26T16:01:42.060Z"
+    },
+    {
+      "_id": "mpmtp1v1feeev2zt",
+      "userId": "mpmtggc4iqot8sgw",
+      "type": "refill",
+      "title": "Medication Approved 💊",
+      "message": "Frontend Postman's medication \"Paracetamol\" was approved by Temitope. ₦5,000 was charged from locked funds.",
+      "read": false,
+      "data": {
+        "medicationId": "mpmtof3cmyg8n1ww",
+        "walletId": "mpmthxbqh4vtxo5y",
+        "amountCharged": 5000
+      },
+      "createdAt": "2026-05-26T16:01:42.061Z",
+      "updatedAt": "2026-05-26T16:01:42.061Z"
+    },
+    {
+      "_id": "mpmtqjzkf58kni9c",
+      "userId": "mpmtn1q4jc3bo9v4",
+      "type": "refill",
+      "title": "New Medication Request",
+      "message": "Frontend Postman has added a new medication \"Omoparozle\" and is requesting approval. Refill cost: ₦5,000.",
+      "read": false,
+      "data": {
+        "medicationId": "mpmtqjzic4wy3faf",
+        "parentId": "mpmthxbpydyptg8a",
+        "walletId": "mpmthxbqh4vtxo5y",
+        "amount": 5000
+      },
+      "createdAt": "2026-05-26T16:02:52.208Z",
+      "updatedAt": "2026-05-26T16:02:52.208Z"
+    },
+    {
+      "_id": "mpmtqjzksev7jpd7",
+      "userId": "mpmthxbpydyptg8a",
+      "type": "refill",
+      "title": "Medication Request Sent",
+      "message": "Your medication \"Omoparozle\" request has been sent to Temitope for approval.",
+      "read": false,
+      "data": {
+        "medicationId": "mpmtqjzic4wy3faf",
+        "pharmacyName": "Temitope"
+      },
+      "createdAt": "2026-05-26T16:02:52.208Z",
+      "updatedAt": "2026-05-26T16:02:52.208Z"
     }
   ]
 }
