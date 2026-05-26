@@ -492,7 +492,7 @@ export default function ChildDashboard() {
 
                                 <Input
                                     label="Or Enter Amount"
-                                    type="number"
+                                    type="tel"
                                     placeholder="Enter amount in Naira"
                                     value={depositForm.amount}
                                     onChange={(e) => setDepositForm((prev) => ({ ...prev, amount: e.target.value }))}
@@ -655,10 +655,10 @@ export default function ChildDashboard() {
                                         {lockOption === 'partial' && (
                                             <Input
                                                 label={`Amount to Lock (min ₦${(parseInt(depositForm.amount || '0') * 0.2).toLocaleString()})`}
-                                                type="number"
+                                                type="tel"
                                                 placeholder="0.00"
                                                 value={depositLockAmount}
-                                                onChange={(e) => setDepositLockAmount(e.target.value)}
+                                                onChange={(e) => setDepositLockAmount(e.target.value.replace(/\D/g, ''))}
                                                 min={parseInt(depositForm.amount || '0') * 0.2}
                                                 max={parseInt(depositForm.amount || '0')}
                                                 required

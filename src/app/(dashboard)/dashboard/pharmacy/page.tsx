@@ -312,7 +312,6 @@ export default function PharmacyDashboard() {
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
                                 </div>
 
                                 {/* Active Medications Grid */}

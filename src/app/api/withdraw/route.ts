@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { Wallets, Notifications, generateId } from '@/lib/indexedDB';
+import { Users, Wallets, Notifications, generateId } from '@/lib/indexedDB';
 
 export async function POST(request: NextRequest) {
     try {
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
         // Save wallet
         Wallets.save(wallet);
 
-        // Notify user
+        // Notify the parent (wallet owner)
         Notifications.create({
             userId: wallet.owner,
             type: 'deduction',
@@ -83,6 +83,22 @@ export async function POST(request: NextRequest) {
                 amount,
             }
         });
+
+        // Notify all linked children
+        const parentUser = Users.findById(wallet.owner);
+        if (parentUser?.links?.length) {
+            const linkedChildren = Users.findByIdsAndRole(parentUser.links, 'child');
+            for (const child of linkedChildren) {
+                Notifications.create({
+                    userId: child._id,
+                    type: 'deduction',
+                    title: 'Wallet Withdrawal',
+                    message: `${parentUser.name} withdrew ₦${amount.toLocaleString()} from their wallet.`,
+                    read: false,
+                    data: { walletId: wallet._id, amount }
+                });
+            }
+        }
 
         return NextResponse.json(
             {

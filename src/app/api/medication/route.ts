@@ -18,14 +18,19 @@ export async function GET(request: NextRequest) {
         const { searchParams } = new URL(request.url);
         const walletId = searchParams.get('walletId');
 
-        let medications;
+        let rawMedications;
         if (walletId) {
-            medications = Medications.findByWalletId(walletId, true);
+            rawMedications = Medications.findByWalletId(walletId, true);
         } else {
             // Return all medications for user's wallet
             const wallet = Wallets.findByOwner(session.user.id);
-            medications = wallet ? Medications.findByWalletId(wallet._id, true) : [];
+            rawMedications = wallet ? Medications.findByWalletId(wallet._id, true) : [];
         }
+
+        const medications = rawMedications.map((med) => ({
+            ...med,
+            countdownDays: Medications.getDaysRemaining(med),
+        }));
 
         return NextResponse.json({ medications });
     } catch (error) {

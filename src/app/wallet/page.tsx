@@ -279,11 +279,6 @@ export default function WalletPage() {
                         <div className="divide-y divide-gray-100">
                             <AnimatePresence>
                                 {filteredLocks.map((lock) => {
-                                    const daysLeft = Math.max(0, Math.ceil((new Date(lock.unlocksAt).getTime() - Date.now()) / (1000 * 60 * 60 * 24)));
-                                    const totalDuration = 30;
-                                    const progress = Math.max(0, Math.min(100, ((totalDuration - daysLeft) / totalDuration) * 100));
-                                    const fee = lock.amount * 0.05;
-
                                     return (
                                         <motion.div
                                             key={lock.id}
@@ -292,7 +287,7 @@ export default function WalletPage() {
                                             exit={{ opacity: 0, x: 10 }}
                                             className="px-5 py-4"
                                         >
-                                            <div className="flex items-start justify-between mb-2">
+                                            <div className="flex items-start justify-between">
                                                 <div className="flex items-center gap-3">
                                                     <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
                                                         <span>💊</span>
@@ -304,32 +299,7 @@ export default function WalletPage() {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex items-center gap-3">
-                                                    <div className="text-right">
-                                                        <p className="font-bold text-amber-600">₦{lock.amount.toLocaleString()}</p>
-                                                        <p className="text-xs text-[#6C757D]">
-                                                            {daysLeft} day{daysLeft !== 1 ? 's' : ''} left
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* Timer progress bar */}
-                                            <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                                <div
-                                                    className="h-full rounded-full transition-all duration-500"
-                                                    style={{
-                                                        width: `${100 - progress}%`,
-                                                        background: daysLeft <= 3
-                                                            ? 'linear-gradient(90deg, #ef4444, #dc2626)'
-                                                            : 'linear-gradient(90deg, #f59e0b, #d97706)',
-                                                    }}
-                                                />
-                                            </div>
-                                            <div className="flex justify-between mt-1">
-                                                <span className="text-[10px] text-[#6C757D]">Locked</span>
-                                                <span className="text-[10px] text-[#6C757D]">
-                                                    Unlocks {new Date(lock.unlocksAt).toLocaleDateString()}
-                                                </span>
+                                                <p className="font-bold text-amber-600">₦{lock.amount.toLocaleString()}</p>
                                             </div>
                                         </motion.div>
                                     );

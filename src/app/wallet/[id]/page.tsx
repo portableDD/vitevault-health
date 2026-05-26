@@ -256,9 +256,6 @@ export default function WalletPage() {
                                         <div key={lock._id} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-100">
                                             <div>
                                                 <p className="font-medium text-sm">{lock.description || 'Medical Reserve'}</p>
-                                                <p className="text-xs text-gray-500">
-                                                    Unlocks: {new Date(lock.unlocksAt).toLocaleDateString()}
-                                                </p>
                                             </div>
                                             <div className="text-right">
                                                 <p className="font-bold text-neutral-dark">₦{lock.amount.toLocaleString()}</p>

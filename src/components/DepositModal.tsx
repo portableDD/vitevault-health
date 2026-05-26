@@ -235,9 +235,9 @@ export default function DepositModal({ isOpen, onClose, walletId, availableBalan
                                         ₦
                                     </span>
                                     <input
-                                        type="number"
+                                        type="tel"
                                         value={amount}
-                                        onChange={(e) => setAmount(Number(e.target.value))}
+                                        onChange={(e) => setAmount(Number(e.target.value.replace(/\D/g, '')))}
                                         className="w-full pl-8 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary bg-white text-lg font-semibold"
                                         min={100}
                                         max={1000000}
@@ -395,9 +395,9 @@ export default function DepositModal({ isOpen, onClose, walletId, availableBalan
                                             {lockOption === 'partial' && (
                                                 <Input
                                                     label={`Amount to Lock (Min ₦${(amount * 0.2).toLocaleString()})`}
-                                                    type="number"
+                                                    type="tel"
                                                     value={lockAmount}
-                                                    onChange={(e) => setLockAmount(Number(e.target.value))}
+                                                    onChange={(e) => setLockAmount(Number(e.target.value.replace(/\D/g, '')))}
                                                     min={amount * 0.2}
                                                     max={amount}
                                                     required

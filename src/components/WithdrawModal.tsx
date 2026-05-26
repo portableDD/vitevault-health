@@ -87,10 +87,10 @@ export default function WithdrawModal({ isOpen, onClose, walletId, availableBala
                     </span>
                     <Input
                         label="Amount to withdraw"
-                        type="number"
+                        type="tel"
                         placeholder="0.00"
                         value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
+                        onChange={(e) => setAmount(e.target.value.replace(/\D/g, ''))}
                         min="100"
                         max={availableBalance}
                         required
@@ -129,7 +129,7 @@ export default function WithdrawModal({ isOpen, onClose, walletId, availableBala
 
                 <div className="bg-amber-50 p-3 rounded-lg border border-amber-100 mt-2">
                     <p className="text-xs text-amber-800">
-                        <span className="font-semibold">Note:</span> You can only withdraw from your available balance. Funds locked for medications cannot be withdrawn until they are unlocked.
+                        <span className="font-semibold">Note:</span> You can only withdraw from your available balance. Locked funds are reserved exclusively for medication payments.
                     </p>
                 </div>
 

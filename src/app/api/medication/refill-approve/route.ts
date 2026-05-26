@@ -124,6 +124,26 @@ export async function POST(request: NextRequest) {
             },
         });
 
+        // Notify all linked children
+        const parentUser = Users.findById(wallet.owner);
+        if (parentUser?.links?.length) {
+            const linkedChildren = Users.findByIdsAndRole(parentUser.links, 'child');
+            for (const child of linkedChildren) {
+                Notifications.create({
+                    userId: child._id,
+                    type: 'refill',
+                    title: 'Medication Approved 💊',
+                    message: `${parentUser.name}'s medication "${medication.name}" was approved by ${session.user.name}. ₦${amount.toLocaleString()} was charged from locked funds.`,
+                    read: false,
+                    data: {
+                        medicationId: medication._id,
+                        walletId: wallet._id,
+                        amountCharged: amount,
+                    }
+                });
+            }
+        }
+
         return NextResponse.json({
             message: `Medication "${medication.name}" approved! Countdown started.`,
             medication: {

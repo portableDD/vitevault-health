@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { Wallets, Notifications, generateId } from '@/lib/indexedDB';
+import { Users, Wallets, Notifications, generateId } from '@/lib/indexedDB';
 import { validateCard } from '@/lib/cardValidation';
 
 export async function POST(request: NextRequest) {
@@ -155,7 +155,7 @@ export async function POST(request: NextRequest) {
 
         Wallets.save(wallet);
 
-        // Create notification for wallet owner
+        // Create notification for wallet owner (parent)
         Notifications.create({
             userId: wallet.owner,
             type: 'deposit',
@@ -168,6 +168,19 @@ export async function POST(request: NextRequest) {
                 fromUserId: session.user.id
             }
         });
+
+        // Also notify the depositing child (if different from wallet owner)
+        if (session.user.id !== wallet.owner) {
+            const parentUser = Users.findById(wallet.owner);
+            Notifications.create({
+                userId: session.user.id,
+                type: 'deposit',
+                title: 'Deposit Confirmed',
+                message: `Your deposit of ₦${amount.toLocaleString()} to ${parentUser?.name ?? 'wallet'} was successful.`,
+                read: false,
+                data: { walletId: wallet._id, amount }
+            });
+        }
 
         return NextResponse.json(
             {

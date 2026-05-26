@@ -314,17 +314,17 @@ export default function MedicationsPage() {
                         <div className="grid grid-cols-2 gap-4">
                             <Input
                                 label="Remaining Quantity"
-                                type="number"
+                                type="tel"
                                 value={formData.remainingQty}
-                                onChange={(e) => setFormData({ ...formData, remainingQty: Number(e.target.value) })}
+                                onChange={(e) => setFormData({ ...formData, remainingQty: Number(e.target.value.replace(/\D/g, '')) })}
                                 min={1}
                                 required
                             />
                             <Input
                                 label="Daily Usage"
-                                type="number"
+                                type="tel"
                                 value={formData.usageRate}
-                                onChange={(e) => setFormData({ ...formData, usageRate: Number(e.target.value) })}
+                                onChange={(e) => setFormData({ ...formData, usageRate: Number(e.target.value.replace(/\D/g, '')) })}
                                 min={1}
                                 required
                             />
@@ -332,9 +332,9 @@ export default function MedicationsPage() {
 
                         <Input
                             label="Refill Cost (₦)"
-                            type="number"
+                            type="tel"
                             value={formData.refillCost}
-                            onChange={(e) => setFormData({ ...formData, refillCost: Number(e.target.value) })}
+                            onChange={(e) => setFormData({ ...formData, refillCost: Number(e.target.value.replace(/\D/g, '')) })}
                             min={100}
                             required
                         />
