@@ -356,12 +356,12 @@ export default function DashboardLayoutContent({ children }: DashboardLayoutCont
                                             <span className="font-medium">{item.label}</span>
                                             {/* Unread badge on Notifications nav item */}
                                             {item.icon === 'bell' && unreadCount > 0 && (
-                                                <span className={`ml-auto min-w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center px-1 ${isActive
-                                                        ? 'bg-white text-[#007BFF]'
-                                                        : 'bg-[#DC3545] text-white'
-                                                    }`}>
-                                                    {unreadCount > 9 ? '9+' : unreadCount}
-                                                </span>
+                                                // <span className={`ml-auto min-w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center px-1 ${isActive
+                                                //         ? 'bg-white text-[#007BFF]'
+                                                //         : 'bg-[#DC3545] text-white'
+                                                //     }`}>
+                                                //     {unreadCount > 9 ? '9+' : unreadCount}
+                                                // </span>
                                             )}
                                         </Link>
                                     </li>
