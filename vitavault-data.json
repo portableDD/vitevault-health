@@ -247,12 +247,12 @@
       "pharmacyId": "mmxoe2tyswnmel14",
       "lastRefillDate": "2026-03-19T16:21:44.041Z",
       "isActive": true,
-      "refillStatus": "approved",
-      "refillRequestedAt": "2026-03-19T16:20:53.490Z",
+      "refillStatus": "pending_approval",
+      "refillRequestedAt": "2026-06-27T21:55:04.898Z",
       "refillRequestedBy": "mmxo0zcs1kg3n4ui",
-      "countdownActive": true,
+      "countdownActive": false,
       "createdAt": "2026-03-19T16:20:53.491Z",
-      "updatedAt": "2026-03-19T16:21:44.044Z",
+      "updatedAt": "2026-06-27T21:55:04.903Z",
       "countdownEndDate": "2026-04-18T16:21:44.041Z"
     },
     {
@@ -267,12 +267,12 @@
       "pharmacyId": "mmxoe2tyswnmel14",
       "lastRefillDate": "2026-03-20T14:10:49.611Z",
       "isActive": true,
-      "refillStatus": "approved",
-      "refillRequestedAt": "2026-03-20T14:10:04.481Z",
+      "refillStatus": "pending_approval",
+      "refillRequestedAt": "2026-06-27T21:55:04.915Z",
       "refillRequestedBy": "mmxo0zcs1kg3n4ui",
-      "countdownActive": true,
+      "countdownActive": false,
       "createdAt": "2026-03-20T14:10:04.481Z",
-      "updatedAt": "2026-03-20T14:10:49.612Z",
+      "updatedAt": "2026-06-27T21:55:04.922Z",
       "countdownEndDate": "2026-04-19T14:10:49.611Z"
     }
   ],
@@ -577,6 +577,34 @@
       },
       "createdAt": "2026-05-25T16:41:17.530Z",
       "updatedAt": "2026-05-25T16:41:17.530Z"
+    },
+    {
+      "_id": "mqwwerf3ob18l69n",
+      "userId": "mmxoe2tyswnmel14",
+      "type": "refill",
+      "title": "Auto-Refill Request",
+      "message": "Paul Smith's medication \"Insulin\" is almost depleted. Auto-refill requested.",
+      "read": false,
+      "data": {
+        "medicationId": "mmxofsz7w4lila3s",
+        "amount": 5000
+      },
+      "createdAt": "2026-06-27T21:55:04.911Z",
+      "updatedAt": "2026-06-27T21:55:04.911Z"
+    },
+    {
+      "_id": "mqwwerfn1zery718",
+      "userId": "mmxoe2tyswnmel14",
+      "type": "refill",
+      "title": "Auto-Refill Request",
+      "message": "Paul Smith's medication \"Paracetamol\" is almost depleted. Auto-refill requested.",
+      "read": false,
+      "data": {
+        "medicationId": "mmyz7fb5w9t6x6il",
+        "amount": 2000
+      },
+      "createdAt": "2026-06-27T21:55:04.931Z",
+      "updatedAt": "2026-06-27T21:55:04.931Z"
     }
   ]
 }

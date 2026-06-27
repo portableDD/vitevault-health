@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { Users, Wallets, Medications } from '@/lib/indexedDB';
+import { Users, Wallets, Medications, Notifications } from '@/lib/indexedDB';
 
 // Helper: calculate days remaining from countdownEndDate or qty
 function getDaysRemaining(med: { countdownEndDate?: string; remainingQty: number; usageRate: number }) {
