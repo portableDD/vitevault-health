@@ -90,8 +90,9 @@ export default function ParentDashboard() {
             fetchDashboardData();
             toast(`${data.medicationName} needs attention!`, { icon: '💊' });
         },
-        onNotification: () => {
-            toast('New notification received', { icon: '🔔' });
+        onNotification: (data) => {
+            toast(data.message || 'New notification received', { icon: '🔔' });
+            fetchDashboardData();
         }
     });
 

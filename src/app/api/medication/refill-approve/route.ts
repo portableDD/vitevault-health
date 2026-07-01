@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { Users, Wallets, Medications, Notifications, generateId } from '@/lib/indexedDB';
+import { notifyRealtime } from '@/lib/realtime';
 
 export async function POST(request: NextRequest) {
     try {
@@ -143,6 +144,15 @@ export async function POST(request: NextRequest) {
                 });
             }
         }
+
+        // Push a live update to the parent's dashboard if it's open, so the approval
+        // and new countdown show up immediately instead of only after a manual reload.
+        await notifyRealtime(request.url, 'balance:update', wallet.owner, {
+            walletId: wallet._id,
+            newBalance: wallet.balance,
+            type: 'deduction',
+            amount,
+        });
 
         return NextResponse.json({
             message: `Medication "${medication.name}" approved! Countdown started.`,

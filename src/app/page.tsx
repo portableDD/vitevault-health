@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform, AnimatePresence, Variants } from 'framer-motion';
+import HomeNavbar from '@/components/landing/HomeNavbar';
 
 // --- Components ---
 
@@ -128,6 +129,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900 selection:bg-sky-200 font-sans overflow-x-hidden">
+      <HomeNavbar />
 
       {/* Decorative Background Gradients */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
@@ -240,7 +242,7 @@ export default function Home() {
       </div>
 
       {/* --- HOW IT WORKS --- */}
-      <section className="relative py-32 px-6">
+      <section id="how-it-works" className="relative py-32 px-6 scroll-mt-24">
         <div className="container-app mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -293,7 +295,7 @@ export default function Home() {
       </section>
 
       {/* --- ROLE SELECTOR --- */}
-      <section className="py-24 px-6 bg-white relative overflow-hidden">
+      <section id="roles" className="py-24 px-6 bg-white relative overflow-hidden scroll-mt-24">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03]" />
 
         <div className="container-app mx-auto relative z-10">

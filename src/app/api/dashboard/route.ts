@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { Users, Wallets, Medications } from '@/lib/indexedDB';
+import { Users, Wallets, Medications, Notifications } from '@/lib/indexedDB';
 
 // Helper: calculate days remaining from countdownEndDate or qty
 function getDaysRemaining(med: { countdownEndDate?: string; remainingQty: number; usageRate: number }) {
@@ -50,9 +50,11 @@ export async function GET() {
             // Get parent's wallet
             const wallet = Wallets.findByOwner(user._id);
 
-            // Get only APPROVED medications linked to this wallet
+            // Get all active medications linked to this wallet (pending, approved, or
+            // none) — the dashboard UI already renders a badge/action per status, so
+            // filtering to 'approved' only here hid newly-added or declined medications.
             const medications = wallet
-                ? Medications.findByWalletIdAndStatus(wallet._id, 'approved')
+                ? Medications.findByWalletId(wallet._id, true)
                 : [];
 
             // Get linked children
@@ -209,7 +211,14 @@ export async function GET() {
                 for (const med of medications) {
                     if (med.refillStatus === 'approved' && med.countdownActive) {
                         const daysLeft = getDaysRemaining(med);
-                        if (daysLeft <= 2) {
+                        const hoursSinceRefill = med.lastRefillDate
+                            ? (Date.now() - new Date(med.lastRefillDate).getTime()) / (1000 * 60 * 60)
+                            : Infinity;
+                        // Require at least a day to pass since the last approval before
+                        // re-flagging as pending — otherwise a freshly-approved medication
+                        // with a short supply window gets immediately reset to pending on
+                        // the very next dashboard load, wiping out the approval/countdown.
+                        if (daysLeft <= 2 && hoursSinceRefill >= 24) {
                             med.refillStatus = 'pending_approval';
                             med.refillRequestedAt = new Date().toISOString();
                             med.countdownActive = false; // Pause countdown until approved and charged again

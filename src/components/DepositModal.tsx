@@ -344,7 +344,7 @@ export default function DepositModal({ isOpen, onClose, walletId, availableBalan
                         >
                             <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
                                 <div className="mb-4">
-                                    <h3 className="font-semibold text-neutral-dark">Lock Funds (Mandatory 20% Min)</h3>
+                                    <h3 className="text-sm font-semibold text-neutral-dark whitespace-nowrap">Lock Funds <span className="text-gray-500 font-normal">(Mandatory 20% Min)</span></h3>
                                     <p className="text-xs text-gray-500">A minimum of 20% must be reserved for medical purposes</p>
                                 </div>
 

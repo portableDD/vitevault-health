@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Button, Card, CountdownTimer, Skeleton } from '@/components/ui';
+import { Button, Card, CountdownTimer, Skeleton, Modal, Textarea } from '@/components/ui';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import PaymentModal from '@/components/PaymentModal';
@@ -60,6 +60,11 @@ export default function PharmacyDashboard() {
 
     const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
     const [processingId, setProcessingId] = useState<string | null>(null);
+    const [rejectingId, setRejectingId] = useState<string | null>(null);
+
+    // Decline Modal State
+    const [declineTarget, setDeclineTarget] = useState<{ id: string; patient: string; medication: string } | null>(null);
+    const [declineReason, setDeclineReason] = useState('');
 
     // Payment Modal State
     const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -127,6 +132,49 @@ export default function PharmacyDashboard() {
             toast.error('Failed to approve refill');
         } finally {
             setProcessingId(null);
+        }
+    };
+
+    const openDeclineModal = (id: string, patient: string, medication: string) => {
+        setDeclineReason('');
+        setDeclineTarget({ id, patient, medication });
+    };
+
+    const closeDeclineModal = () => {
+        setDeclineTarget(null);
+        setDeclineReason('');
+    };
+
+    const confirmDecline = async () => {
+        if (!declineTarget) return;
+        const { id, patient, medication } = declineTarget;
+
+        setRejectingId(id);
+
+        try {
+            const response = await fetch('/api/medication/refill-reject', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    medicationId: id,
+                    reason: declineReason.trim() || undefined,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Rejection failed');
+            }
+
+            toast.success(`Refill request declined for ${patient}'s ${medication}`);
+            closeDeclineModal();
+            fetchDashboardData();
+        } catch (error) {
+            console.error('Reject error:', error);
+            toast.error(error instanceof Error ? error.message : 'Failed to decline refill');
+        } finally {
+            setRejectingId(null);
         }
     };
 
@@ -251,7 +299,7 @@ export default function PharmacyDashboard() {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-3 flex-wrap">
                                         <p className="text-lg font-bold text-[#28A745]">
                                             ₦{item.amount.toLocaleString()}
                                         </p>
@@ -259,9 +307,19 @@ export default function PharmacyDashboard() {
                                             variant="primary"
                                             size="sm"
                                             isLoading={processingId === item.id}
+                                            disabled={rejectingId === item.id}
                                             onClick={() => handleApprove(item.id, item.patient, item.medication)}
                                         >
-                                            ✅ Approve & Charge
+                                            Approve & Charge
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            size="sm"
+                                            isLoading={rejectingId === item.id}
+                                            disabled={processingId === item.id}
+                                            onClick={() => openDeclineModal(item.id, item.patient, item.medication)}
+                                        >
+                                            Decline
                                         </Button>
                                     </div>
                                 </Card>
@@ -345,15 +403,28 @@ export default function PharmacyDashboard() {
                                                                 }`}>
                                                                     {med.isNew ? '🆕 New Prescription' : '🔄 Refill Request'}
                                                                 </span>
-                                                                <Button 
-                                                                    size="sm" 
-                                                                    variant="primary" 
-                                                                    className="w-full text-[10px] py-1 h-auto"
-                                                                    isLoading={processingId === med.id}
-                                                                    onClick={() => handleApprove(med.id, patient.name, med.name)}
-                                                                >
-                                                                    Approve & Charge
-                                                                </Button>
+                                                                <div className="flex flex-col gap-1">
+                                                                    <Button 
+                                                                        size="sm" 
+                                                                        variant="primary" 
+                                                                        className="w-full text-[10px] py-1 h-auto"
+                                                                        isLoading={processingId === med.id}
+                                                                        disabled={rejectingId === med.id}
+                                                                        onClick={() => handleApprove(med.id, patient.name, med.name)}
+                                                                    >
+                                                                        Approve
+                                                                    </Button>
+                                                                    <Button 
+                                                                        size="sm" 
+                                                                        variant="danger" 
+                                                                        className="w-full text-[10px] py-1 h-auto"
+                                                                        isLoading={rejectingId === med.id}
+                                                                        disabled={processingId === med.id}
+                                                                        onClick={() => openDeclineModal(med.id, patient.name, med.name)}
+                                                                    >
+                                                                        Decline
+                                                                    </Button>
+                                                                </div>
                                                             </>
                                                         ) : med.status === 'active' ? (
                                                             <div className="space-y-1">
@@ -383,6 +454,48 @@ export default function PharmacyDashboard() {
                 )}
             </div>
 
+            {/* Decline Confirmation Modal */}
+            <Modal
+                isOpen={!!declineTarget}
+                onClose={closeDeclineModal}
+                title="Decline Refill Request"
+                size="sm"
+            >
+                {declineTarget && (
+                    <div className="space-y-4">
+                        <p className="text-sm text-[#6C757D]">
+                            Decline the refill request for <span className="font-semibold text-[#343A40]">{declineTarget.patient}&apos;s {declineTarget.medication}</span>? The patient will be notified.
+                        </p>
+
+                        <Textarea
+                            label="Reason (optional)"
+                            placeholder="Add a reason for the patient..."
+                            value={declineReason}
+                            onChange={(e) => setDeclineReason(e.target.value)}
+                            rows={3}
+                        />
+
+                        <div className="flex gap-3 justify-end pt-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={closeDeclineModal}
+                                disabled={rejectingId === declineTarget.id}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                variant="danger"
+                                size="sm"
+                                isLoading={rejectingId === declineTarget.id}
+                                onClick={confirmDecline}
+                            >
+                                Decline Request
+                            </Button>
+                        </div>
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 }
