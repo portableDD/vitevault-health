@@ -222,7 +222,7 @@ export default function Home() {
         <div className="container-app py-10 grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-slate-200">
           {[
             { label: "Families Secured", value: "500+" },
-            { label: "Funds Protected", value: "$2M+" },
+            { label: "Funds Protected", value: "₦2B+" },
             { label: "Pharmacies", value: "120+" },
             { label: "Uptime", value: "99.9%" }
           ].map((stat, i) => (

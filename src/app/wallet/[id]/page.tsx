@@ -94,7 +94,7 @@ export default function WalletPage() {
         userId: wallet?.owner || '',
         onBalanceUpdate: () => {
             fetchWallet();
-            toast.success('Wallet balance updated!', { icon: '💰' });
+            toast.success('Wallet balance updated!', { icon: '📥' });
         }
     });
 

@@ -21,8 +21,8 @@ interface Notification {
 // Get icon based on notification type
 const getNotificationIcon = (type: string): string => {
     switch (type) {
-        case 'deposit': return '💰';
-        case 'deduction': return '💸';
+        case 'deposit': return '📥';
+        case 'deduction': return '📤';
         case 'refill': return '💊';
         case 'connection': return '🤝';
         case 'system': return '🔔';
@@ -73,13 +73,13 @@ export default function NotificationsPage() {
             message,
             timestamp: data.timestamp,
             read: false,
-            icon: data.type === 'deposit' ? '💰' : '💸',
+            icon: data.type === 'deposit' ? '📥' : '📤',
         };
 
         setNotifications((prev) => [newNotification, ...prev]);
 
         toast(message, {
-            icon: data.type === 'deposit' ? '💰' : '💸',
+            icon: data.type === 'deposit' ? '📥' : '📤',
             duration: 4000,
         });
     }, []);

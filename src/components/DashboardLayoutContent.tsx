@@ -22,9 +22,9 @@ interface NotificationPreview {
 const getNotifIcon = (type: string) => {
   switch (type) {
     case "deposit":
-      return "💰";
+      return "📥";
     case "deduction":
-      return "💸";
+      return "📤";
     case "refill":
       return "💊";
     case "connection":

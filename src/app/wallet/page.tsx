@@ -134,7 +134,7 @@ export default function WalletPage() {
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-2xl md:text-3xl font-bold text-[#343A40]">
-                        💰 Wallet
+                        ₦ Wallet
                     </h1>
                     <p className="text-[#6C757D] mt-1">
                         Your complete financial overview

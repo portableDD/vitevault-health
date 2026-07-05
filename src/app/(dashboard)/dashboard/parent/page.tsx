@@ -84,7 +84,7 @@ export default function ParentDashboard() {
         userId: dashboardData?.user?.id || '',
         onBalanceUpdate: () => {
             fetchDashboardData();
-            toast.success('Wallet balance updated!', { icon: '💰' });
+            toast.success('Wallet balance updated!', { icon: '📥' });
         },
         onRefillAlert: (data) => {
             fetchDashboardData();
@@ -222,7 +222,7 @@ export default function ParentDashboard() {
                                     className="bg-white/20 border-white/30 text-white hover:bg-white/30"
                                     onClick={() => setIsDepositModalOpen(true)}
                                 >
-                                    💰 Deposit
+                                    ₦ Deposit
                                 </Button>
                                 <Button
                                     variant="outline"
@@ -474,7 +474,7 @@ export default function ParentDashboard() {
                                         <div>
                                             <div className="flex items-center gap-2">
                                                 <span className="text-sm">
-                                                    {activity.type === 'deposit' ? '💰' : '💸'}
+                                                    {activity.type === 'deposit' ? '📥' : '📤'}
                                                 </span>
                                                 <span className="font-medium text-[#343A40] text-sm">
                                                     {activity.description || (activity.type === 'deposit' ? 'Deposit' : 'Auto-Deduction')}

@@ -1,906 +1,188 @@
 {
   "users": [
     {
-      "_id": "mr236bgz2ogpjqbo",
+      "_id": "mr3yh9pgwptdypsi",
       "email": "parent@vitavault.test",
-      "passwordHash": "$2b$12$NJf0Eaz7IcjJRTz6Rrx1ZuqTZTQ6oVdZHkZF.4n9Xx4rKcLnk17t2",
+      "passwordHash": "$2b$12$157Bby2P47Bagnm8hqgeAu9VrkBc.Sa5VymdrtM2zaZ/ZIpOJnymG",
       "name": "Test Parent",
       "role": "parent",
       "links": [
-        "mr236bx5cy56c5xk",
-        "mr236boy2ncgoxif"
+        "mr3yha6ee1il9j8p"
       ],
-      "linkCode": "CHFLL0",
+      "linkCode": "9VO8VJ",
       "notifications": {
         "refillReminders": true,
         "depositAlerts": true,
         "connectionRequests": true,
         "emailNotifications": false
       },
-      "createdAt": "2026-07-01T13:03:19.187Z",
-      "updatedAt": "2026-07-01T13:14:56.377Z",
-      "walletId": "mr236bgzu5k6bfp3"
+      "createdAt": "2026-07-02T20:27:24.388Z",
+      "updatedAt": "2026-07-03T10:45:47.649Z",
+      "walletId": "mr3yh9phhoqiathq"
     },
     {
-      "_id": "mr236boy2ncgoxif",
+      "_id": "mr3yh9y3yi8xshgg",
       "email": "child@vitavault.test",
-      "passwordHash": "$2b$12$uPmWkAbpOAyvjaGATzwiHucH4zOjBdzvFvrDbgdoSL3zSzrLSDnPu",
+      "passwordHash": "$2b$12$k2E4zAN4bilUWb6G.p6yzu6/V/O1ckoXimm75jnZqOrjcrKuR354q",
       "name": "Test Child",
       "role": "child",
-      "links": [
-        "mr236bgz2ogpjqbo"
-      ],
-      "linkCode": "I55AKT",
+      "links": [],
+      "linkCode": "81F1DZ",
       "notifications": {
         "refillReminders": true,
         "depositAlerts": true,
         "connectionRequests": true,
         "emailNotifications": false
       },
-      "createdAt": "2026-07-01T13:03:19.474Z",
-      "updatedAt": "2026-07-01T13:14:56.376Z"
+      "createdAt": "2026-07-02T20:27:24.699Z",
+      "updatedAt": "2026-07-02T20:27:24.699Z"
     },
     {
-      "_id": "mr236bx5cy56c5xk",
+      "_id": "mr3yha6ee1il9j8p",
       "email": "pharmacy@vitavault.test",
-      "passwordHash": "$2b$12$/WqOIFw3GTZ3e3GuGOLwqeQJ.YDO4SHFTc6w1wFRk/h/gARWG4DGG",
+      "passwordHash": "$2b$12$Tj9X6PTlWm40URVMQhw9u.27009c2HWVNT8MiLj2Btvy1Ce5fYdw2",
       "name": "Test Pharmacy",
       "role": "pharmacy",
       "links": [
-        "mr236bgz2ogpjqbo"
+        "mr3yh9pgwptdypsi"
       ],
-      "linkCode": "3LG3KI",
+      "linkCode": "CMRKQV",
       "notifications": {
         "refillReminders": true,
         "depositAlerts": true,
         "connectionRequests": true,
         "emailNotifications": false
       },
-      "createdAt": "2026-07-01T13:03:19.769Z",
-      "updatedAt": "2026-07-01T13:14:12.551Z"
+      "createdAt": "2026-07-02T20:27:24.998Z",
+      "updatedAt": "2026-07-03T10:45:47.648Z"
     }
   ],
   "wallets": [
     {
-      "_id": "mr236bgzu5k6bfp3",
-      "owner": "mr236bgz2ogpjqbo",
-      "balance": 50000,
+      "_id": "mr3yh9phhoqiathq",
+      "owner": "mr3yh9pgwptdypsi",
+      "balance": 47500,
       "currency": "NGN",
       "transactions": [
         {
-          "_id": "mr23j3urv873tcth",
+          "_id": "mr4t2vlzvgj5gg0n",
           "amount": 50000,
           "type": "deposit",
           "description": "Deposit via VISA ending in 1111",
-          "date": "2026-07-01T13:13:15.843Z",
+          "date": "2026-07-03T10:44:01.031Z",
           "schedule": "one-time",
-          "fromUserId": "mr236bgz2ogpjqbo"
+          "fromUserId": "mr3yh9pgwptdypsi"
         },
         {
-          "_id": "mr23n9c9xksv8n1t",
-          "amount": 25000,
+          "_id": "mr4t7ryler4o0k00",
+          "amount": 2500,
           "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T13:16:29.577Z",
+          "description": "Pharmacy Charge: Choloquine",
+          "date": "2026-07-03T10:47:49.581Z",
           "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
-        },
-        {
-          "_id": "mr23ndax9xgdtxbc",
-          "amount": 25000,
-          "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T13:16:34.713Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
-        },
-        {
-          "_id": "mr23z7b4xc8b3d6k",
-          "amount": 50000,
-          "type": "deposit",
-          "description": "Deposit via VISA ending in 1111",
-          "date": "2026-07-01T13:25:46.816Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236boy2ncgoxif"
-        },
-        {
-          "_id": "mr241cjcvljhkx2w",
-          "amount": 50000,
-          "type": "deposit",
-          "description": "Deposit via VISA ending in 1111",
-          "date": "2026-07-01T13:27:26.904Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bgz2ogpjqbo"
-        },
-        {
-          "_id": "mr2439rno3qntibf",
-          "amount": 25000,
-          "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T13:28:56.627Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
-        },
-        {
-          "_id": "mr24jyn0anneoo52",
-          "amount": 25000,
-          "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T13:41:55.356Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
-        },
-        {
-          "_id": "mr24vxo5ick6cpwx",
-          "amount": 25000,
-          "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T13:51:13.973Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
-        },
-        {
-          "_id": "mr24zsp9i17jczgn",
-          "amount": 25000,
-          "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T13:54:14.157Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
-        },
-        {
-          "_id": "mr269ti2dq939s20",
-          "amount": 50000,
-          "type": "deposit",
-          "description": "Deposit via VISA ending in 1111",
-          "date": "2026-07-01T14:30:01.370Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bgz2ogpjqbo"
-        },
-        {
-          "_id": "mr26t21kygka8671",
-          "amount": 25000,
-          "type": "deduction",
-          "description": "Pharmacy Charge: Insulin",
-          "date": "2026-07-01T14:44:58.904Z",
-          "schedule": "one-time",
-          "fromUserId": "mr236bx5cy56c5xk",
-          "medicationId": "mr23muk0ccd19euk"
+          "fromUserId": "mr3yha6ee1il9j8p",
+          "medicationId": "mr4t797hzyooqrlw"
         }
       ],
       "lockedFunds": [
         {
-          "_id": "mr23j3urktah9r0f",
-          "amount": 0,
-          "lockedAt": "2026-07-01T13:13:15.843Z",
-          "unlocksAt": "2036-07-01T13:13:15.843Z",
-          "isActive": false,
-          "description": "Medical Reserve"
-        },
-        {
-          "_id": "mr23z7b4xe6d5i56",
-          "amount": 0,
-          "lockedAt": "2026-07-01T13:25:46.816Z",
-          "unlocksAt": "2036-07-01T13:25:46.816Z",
-          "isActive": false,
-          "description": "Medical Reserve"
-        },
-        {
-          "_id": "mr269ti20sp1phq7",
-          "amount": 25000,
-          "lockedAt": "2026-07-01T14:30:01.370Z",
-          "unlocksAt": "2036-07-01T14:30:01.370Z",
+          "_id": "mr4t2vlzxckegqun",
+          "amount": 7500,
+          "lockedAt": "2026-07-03T10:44:01.031Z",
+          "unlocksAt": "2036-07-03T10:44:01.031Z",
           "isActive": true,
           "description": "Medical Reserve"
         }
       ],
       "scheduledDeposits": [],
-      "createdAt": "2026-07-01T13:03:19.187Z",
-      "updatedAt": "2026-07-01T14:44:58.904Z"
+      "createdAt": "2026-07-02T20:27:24.389Z",
+      "updatedAt": "2026-07-03T10:47:49.581Z"
     }
   ],
   "medications": [
     {
-      "_id": "mr23muk0ccd19euk",
-      "name": "Insulin",
-      "description": "Take once after 3 days",
-      "remainingQty": 2,
-      "totalQty": 2,
+      "_id": "mr4t797hzyooqrlw",
+      "name": "Choloquine",
+      "description": "take one daily",
+      "remainingQty": 5,
+      "totalQty": 5,
       "usageRate": 1,
-      "refillCost": 25000,
-      "walletId": "mr236bgzu5k6bfp3",
-      "pharmacyId": "mr236bx5cy56c5xk",
-      "lastRefillDate": "2026-07-01T14:44:58.904Z",
+      "refillCost": 2500,
+      "walletId": "mr3yh9phhoqiathq",
+      "pharmacyId": "mr3yha6ee1il9j8p",
+      "lastRefillDate": "2026-07-03T10:47:49.581Z",
       "isActive": true,
       "refillStatus": "approved",
+      "refillRequestedAt": "2026-07-03T10:47:25.277Z",
+      "refillRequestedBy": "mr3yh9pgwptdypsi",
       "countdownActive": true,
-      "createdAt": "2026-07-01T13:16:10.416Z",
-      "updatedAt": "2026-07-01T14:44:58.905Z",
-      "countdownEndDate": "2026-07-03T14:44:58.904Z",
-      "refillRequestedAt": "2026-07-01T14:44:54.742Z",
-      "refillRequestedBy": "mr236bgz2ogpjqbo"
+      "createdAt": "2026-07-03T10:47:25.277Z",
+      "updatedAt": "2026-07-03T10:47:49.582Z",
+      "countdownEndDate": "2026-07-08T10:47:49.581Z"
     }
   ],
   "notifications": [
     {
-      "_id": "mr23j3vl62382aag",
-      "userId": "mr236bgz2ogpjqbo",
+      "_id": "mr4t2vmyla223hqm",
+      "userId": "mr3yh9pgwptdypsi",
       "type": "deposit",
       "title": "Deposit Received",
       "message": "₦50,000 was deposited to your wallet via visa.",
-      "read": true,
+      "read": false,
       "data": {
-        "walletId": "mr236bgzu5k6bfp3",
+        "walletId": "mr3yh9phhoqiathq",
         "amount": 50000,
-        "fromUserId": "mr236bgz2ogpjqbo"
+        "fromUserId": "mr3yh9pgwptdypsi"
       },
-      "createdAt": "2026-07-01T13:13:15.873Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
+      "createdAt": "2026-07-03T10:44:01.066Z",
+      "updatedAt": "2026-07-03T10:44:01.066Z"
     },
     {
-      "_id": "mr23mukb7hobv04h",
-      "userId": "mr236bx5cy56c5xk",
+      "_id": "mr4t797irmrrfmnv",
+      "userId": "mr3yha6ee1il9j8p",
       "type": "refill",
       "title": "New Medication Request",
-      "message": "Test Parent has added a new medication \"Insulin\" and is requesting approval. Refill cost: ₦25,000.",
+      "message": "Test Parent has added a new medication \"Choloquine\" and is requesting approval. Refill cost: ₦2,500.",
       "read": false,
       "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
+        "medicationId": "mr4t797hzyooqrlw",
+        "parentId": "mr3yh9pgwptdypsi",
+        "walletId": "mr3yh9phhoqiathq",
+        "amount": 2500
       },
-      "createdAt": "2026-07-01T13:16:10.427Z",
-      "updatedAt": "2026-07-01T13:16:10.427Z"
+      "createdAt": "2026-07-03T10:47:25.278Z",
+      "updatedAt": "2026-07-03T10:47:25.278Z"
     },
     {
-      "_id": "mr23mukdhrs106je",
-      "userId": "mr236bgz2ogpjqbo",
+      "_id": "mr4t797jl9irpwfm",
+      "userId": "mr3yh9pgwptdypsi",
       "type": "refill",
       "title": "Medication Request Sent",
-      "message": "Your medication \"Insulin\" request has been sent to Test Pharmacy for approval.",
-      "read": true,
+      "message": "Your medication \"Choloquine\" request has been sent to Test Pharmacy for approval.",
+      "read": false,
       "data": {
-        "medicationId": "mr23muk0ccd19euk",
+        "medicationId": "mr4t797hzyooqrlw",
         "pharmacyName": "Test Pharmacy"
       },
-      "createdAt": "2026-07-01T13:16:10.429Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
+      "createdAt": "2026-07-03T10:47:25.279Z",
+      "updatedAt": "2026-07-03T10:47:25.279Z"
     },
     {
-      "_id": "mr23n9casoe5u4nk",
-      "userId": "mr236bgz2ogpjqbo",
+      "_id": "mr4t7rymch14cmk7",
+      "userId": "mr3yh9pgwptdypsi",
       "type": "refill",
       "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:16:29.578Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr23n9caszocr6qb",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
+      "message": "Test Pharmacy approved your medication \"Choloquine\". ₦2,500 was charged from locked funds. The countdown has started.",
       "read": false,
       "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
+        "medicationId": "mr4t797hzyooqrlw",
+        "walletId": "mr3yh9phhoqiathq",
+        "pharmacyId": "mr3yha6ee1il9j8p",
+        "daysSupply": 5,
+        "amountCharged": 2500
       },
-      "createdAt": "2026-07-01T13:16:29.578Z",
-      "updatedAt": "2026-07-01T13:16:29.578Z"
-    },
-    {
-      "_id": "mr23n9cj6f4av5nr",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "Auto-Refill Request",
-      "message": "Test Parent's medication \"Insulin\" is almost depleted. Auto-refill requested.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:16:29.587Z",
-      "updatedAt": "2026-07-01T13:16:29.587Z"
-    },
-    {
-      "_id": "mr23ndayfwoqj7ds",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:16:34.714Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr23ndayu1ju3z7t",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:16:34.714Z",
-      "updatedAt": "2026-07-01T13:16:34.714Z"
-    },
-    {
-      "_id": "mr23ndbhuvhvt095",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "Auto-Refill Request",
-      "message": "Test Parent's medication \"Insulin\" is almost depleted. Auto-refill requested.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:16:34.733Z",
-      "updatedAt": "2026-07-01T13:16:34.733Z"
-    },
-    {
-      "_id": "mr23vhpitgbpvhjh",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Declined",
-      "message": "Test Pharmacy declined your request for \"Insulin\". Reason: not needed again",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "rejected": true,
-        "reason": "not needed again"
-      },
-      "createdAt": "2026-07-01T13:22:53.670Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr23vhpuyxmws73c",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "Auto-Refill Request",
-      "message": "Test Parent's medication \"Insulin\" is almost depleted. Auto-refill requested.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:22:53.682Z",
-      "updatedAt": "2026-07-01T13:22:53.682Z"
-    },
-    {
-      "_id": "mr23z7b8ipx7zvdk",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "deposit",
-      "title": "Deposit Received",
-      "message": "₦50,000 was deposited to your wallet via visa.",
-      "read": true,
-      "data": {
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 50000,
-        "fromUserId": "mr236boy2ncgoxif"
-      },
-      "createdAt": "2026-07-01T13:25:46.820Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr23z7b88xsl8sqx",
-      "userId": "mr236boy2ncgoxif",
-      "type": "deposit",
-      "title": "Deposit Confirmed",
-      "message": "Your deposit of ₦50,000 to Test Parent was successful.",
-      "read": false,
-      "data": {
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 50000
-      },
-      "createdAt": "2026-07-01T13:25:46.820Z",
-      "updatedAt": "2026-07-01T13:25:46.820Z"
-    },
-    {
-      "_id": "mr241cjgcxwdw31p",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "deposit",
-      "title": "Deposit Received",
-      "message": "₦50,000 was deposited to your wallet via visa.",
-      "read": true,
-      "data": {
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 50000,
-        "fromUserId": "mr236bgz2ogpjqbo"
-      },
-      "createdAt": "2026-07-01T13:27:26.908Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr2439rq1do2780p",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:28:56.630Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr2439rrme2f3kup",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:28:56.631Z",
-      "updatedAt": "2026-07-01T13:28:56.631Z"
-    },
-    {
-      "_id": "mr2439s2mshaylrh",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "Auto-Refill Request",
-      "message": "Test Parent's medication \"Insulin\" is almost depleted. Auto-refill requested.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:28:56.642Z",
-      "updatedAt": "2026-07-01T13:28:56.642Z"
-    },
-    {
-      "_id": "mr24jyn3rh9d9h0g",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:41:55.359Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24jyn3ud389w1r",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:41:55.359Z",
-      "updatedAt": "2026-07-01T13:41:55.359Z"
-    },
-    {
-      "_id": "mr24kaiqp36lwye5",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:42:10.754Z",
-      "updatedAt": "2026-07-01T13:42:10.754Z"
-    },
-    {
-      "_id": "mr24kaiqliq9sx5e",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T13:42:10.754Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24lsjups6x34o6",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Declined",
-      "message": "Test Pharmacy declined your request for \"Insulin\". Reason: test decline",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "rejected": true,
-        "reason": "test decline"
-      },
-      "createdAt": "2026-07-01T13:43:20.778Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24vr2kwzua96nz",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:51:05.420Z",
-      "updatedAt": "2026-07-01T13:51:05.420Z"
-    },
-    {
-      "_id": "mr24vr2kmg72451p",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T13:51:05.420Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24vxo6t1l5j34p",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:51:13.974Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24vxo6jcop4bk1",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:51:13.974Z",
-      "updatedAt": "2026-07-01T13:51:13.974Z"
-    },
-    {
-      "_id": "mr24ymjkghnn05b0",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:53:19.520Z",
-      "updatedAt": "2026-07-01T13:53:19.520Z"
-    },
-    {
-      "_id": "mr24ymjl0i55px5m",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T13:53:19.521Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24zspbckp1hlmq",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:54:14.159Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr24zspchyrjbox4",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T13:54:14.160Z",
-      "updatedAt": "2026-07-01T13:54:14.160Z"
-    },
-    {
-      "_id": "mr250ugnz2sq1ixz",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T13:55:03.094Z",
-      "updatedAt": "2026-07-01T13:55:03.094Z"
-    },
-    {
-      "_id": "mr250ugnkflh9el5",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T13:55:03.095Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr250w79fg8496rd",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Declined",
-      "message": "Test Pharmacy declined your request for \"Insulin\". Reason: test decline sse",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "rejected": true,
-        "reason": "test decline sse"
-      },
-      "createdAt": "2026-07-01T13:55:05.349Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr269tiwnu62rqaf",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "deposit",
-      "title": "Deposit Received",
-      "message": "₦50,000 was deposited to your wallet via visa.",
-      "read": true,
-      "data": {
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 50000,
-        "fromUserId": "mr236bgz2ogpjqbo"
-      },
-      "createdAt": "2026-07-01T14:30:01.400Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr269zg0bqi8w3gu",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T14:30:09.072Z",
-      "updatedAt": "2026-07-01T14:30:09.072Z"
-    },
-    {
-      "_id": "mr269zg0egr7gqvc",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T14:30:09.072Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr26h28237ubakm7",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Declined",
-      "message": "Test Pharmacy declined your request for \"Insulin\". Reason: decline for testing",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "rejected": true,
-        "reason": "decline for testing"
-      },
-      "createdAt": "2026-07-01T14:35:39.266Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr26myd0nz08i6n9",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T14:40:14.196Z",
-      "updatedAt": "2026-07-01T14:40:14.196Z"
-    },
-    {
-      "_id": "mr26myd121oq8z80",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T14:40:14.197Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr26omzw82s4ysz4",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Declined",
-      "message": "Test Pharmacy declined your request for \"Insulin\". Reason: testing decline",
-      "read": true,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "rejected": true,
-        "reason": "testing decline"
-      },
-      "createdAt": "2026-07-01T14:41:32.780Z",
-      "updatedAt": "2026-07-01T14:42:04.508Z"
-    },
-    {
-      "_id": "mr26syu246anq3qi",
-      "userId": "mr236bx5cy56c5xk",
-      "type": "refill",
-      "title": "New Refill Request",
-      "message": "Test Parent has requested a refill for \"Insulin\" — ₦25,000.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "parentId": "mr236bgz2ogpjqbo",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amount": 25000
-      },
-      "createdAt": "2026-07-01T14:44:54.746Z",
-      "updatedAt": "2026-07-01T14:44:54.746Z"
-    },
-    {
-      "_id": "mr26syu2si5rr53x",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Refill Request Sent",
-      "message": "Your refill request for \"Insulin\" has been sent to Test Pharmacy.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "pharmacyName": "Test Pharmacy"
-      },
-      "createdAt": "2026-07-01T14:44:54.746Z",
-      "updatedAt": "2026-07-01T14:44:54.746Z"
-    },
-    {
-      "_id": "mr26t21l6g1px9h9",
-      "userId": "mr236bgz2ogpjqbo",
-      "type": "refill",
-      "title": "Medication Approved & Charged! 💊",
-      "message": "Test Pharmacy approved your medication \"Insulin\". ₦25,000 was charged from locked funds. The countdown has started.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "pharmacyId": "mr236bx5cy56c5xk",
-        "daysSupply": 2,
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T14:44:58.905Z",
-      "updatedAt": "2026-07-01T14:44:58.905Z"
-    },
-    {
-      "_id": "mr26t21o3pwb2nl5",
-      "userId": "mr236boy2ncgoxif",
-      "type": "refill",
-      "title": "Medication Approved 💊",
-      "message": "Test Parent's medication \"Insulin\" was approved by Test Pharmacy. ₦25,000 was charged from locked funds.",
-      "read": false,
-      "data": {
-        "medicationId": "mr23muk0ccd19euk",
-        "walletId": "mr236bgzu5k6bfp3",
-        "amountCharged": 25000
-      },
-      "createdAt": "2026-07-01T14:44:58.908Z",
-      "updatedAt": "2026-07-01T14:44:58.908Z"
+      "createdAt": "2026-07-03T10:47:49.582Z",
+      "updatedAt": "2026-07-03T10:47:49.582Z"
     }
   ]
 }

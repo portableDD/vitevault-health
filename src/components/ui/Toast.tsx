@@ -94,7 +94,7 @@ export const showDeduction = (amount: number, medication: string) => {
 
 export const showDeposit = (amount: number) => {
     toast.success(`₦${amount.toLocaleString()} deposited successfully!`, {
-        icon: '💰',
+        icon: '📥',
         duration: 5000,
     });
 };

@@ -56,7 +56,7 @@ export default function WithdrawModal({ isOpen, onClose, walletId, availableBala
             const data = await res.json();
 
             if (res.ok) {
-                toast.success('Withdrawal successful!', { icon: '💸' });
+                toast.success('Withdrawal successful!', { icon: '📤' });
                 onSuccess?.();
                 onClose();
                 setAmount('');
